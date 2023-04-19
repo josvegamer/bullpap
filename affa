@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Tienda web</title>
+</head>
+<body>
+  <h1>Bienvenido a nuestra tienda web</h1>
+  
+  <?php
+    // Conectarse a la base de datos
+    $con = mysqli_connect("localhost", "usuario", "contraseña", "basededatos");
+
+    // Verificar si la conexión fue exitosa
+    if (mysqli_connect_errno()) {
+      echo "Error al conectarse a la base de datos: " . mysqli_connect_error();
+    }
+
+    // Obtener los productos de la base de datos
+    $query = "SELECT * FROM productos";
+    $result = mysqli_query($con, $query);
+
+    // Mostrar los productos en la página
+    while ($row = mysqli_fetch_array($result)) {
+      echo "<h2>" . $row['nombre'] . "</h2>";
+      echo "<p>" . $row['descripcion'] . "</p>";
+      echo "<p>Precio: $" . $row['precio'] . "</p>";
+      echo "<hr>";
+    }
+
+    // Cerrar la conexión
+    mysqli_close($con);
+  ?>
+</body>
+</html>
